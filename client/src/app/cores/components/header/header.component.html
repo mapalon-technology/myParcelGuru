@@ -1,0 +1,21 @@
+<!-- Author Swapnil & Dipti:-14/06/2019
+Header -->
+<mat-toolbar class="header">
+  <!-- Logo in the left corner -->
+  <h1>
+    <img class="type" src="../assets/image/parcelGuru.png">
+  </h1>
+  <!-- Dropdown for shipping partners -->
+  <mat-form-field class="dropdown" *ngIf="title && title != ''">
+    <mat-label>{{title}}</mat-label>
+    <mat-select (selectionChange)=onChange($event)>
+      <mat-option
+      *ngFor="let ship of shippings" [value]="ship.code">
+        {{ship.name}}
+        {{ship.link}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <!-- Home Icon in the right corner for going to homepage -->
+  <mat-icon aria-hidden="false" aria-label="home icon" [routerLink]="['/frontpage']" routerLinkActive="router-link-active" class="home"> home</mat-icon>
+</mat-toolbar>

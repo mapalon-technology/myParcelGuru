@@ -1,0 +1,24 @@
+/* Author Swapnil:-14/06/2019 */
+/* container */
+.head{
+  padding-top: 3%;
+  text-align: center;
+  color:#DB7093;
+  font-size: 150%;
+}
+@media screen and (max-width:480px){
+  .head, .div,.div img{
+    max-width:50%;
+  }
+}
+div{
+  text-align: center;
+  padding:20px;
+  margin:10px;
+}
+div img {
+  width:150px;
+  height:150px;
+border-radius: 15px;
+margin:25px;
+}
