@@ -1,7 +1,8 @@
 //author Shambhu:-25/06/2019
 // Schema for the NonDocument type
+//Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js.
 const mongoose = require('mongoose');
-
+// Declaring schema for the Non-Document type
 const nonDocumentSchema = mongoose.Schema
 (
   {

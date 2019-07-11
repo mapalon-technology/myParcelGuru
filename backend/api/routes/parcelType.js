@@ -1,129 +1,23 @@
 //author Shambhu:-25/06/2019
 // Operations related backend of ParcelType Schema
+
+// Express is a module. Provides you a way to implement HTTP server.
 const express = require('express');
+//  Routes enable you to create different URLs for different content in your application.
 const router = express.Router();
+//Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js.
 const mongoose = require('mongoose');
+// config to read parcel type from file and env.
 const ParcelType = require('../models/parcelType');
+// import controllers
+const ParcelTypeController = require('../controllers/parcelType');
 //fetching data from database
-router.get('/', (req, res, next) =>
-{
-  ParcelType.find().select('name code')
-  .exec()
-  .then(docs =>
-    {
-    res.status(200).json(
-      {
-      count: docs.length,
-      parcelType: docs.map(doc =>
-         {
-        return {
-          _id: doc._id,
-          name: doc.name,
-          code: doc.code,
-          request:
-          {
-            type: 'GET',
-            url: 'http://localhost:3000/parcelType/'
-          }
-        }
-      })
-    });
-  })
-  .catch(err => {
-    res.status(500).json(
-      {
-      error: err
-    });
-  })
-});
+router.get('/', ParcelTypeController.parcelType_get_allrecords);
 //Adding data to the database
-router.post('/', (req, res, next) =>
-{
-  const parcelType = new ParcelType(
-    {
-    _id: mongoose.Types.ObjectId(),
-    name: req.body.name,
-    code: req.body.code
-  });
-  parcelType
-  .save()
-  .then(result =>
-    {
-    console.log(result);
-    res.status(201).json(
-      {
-      message: 'Non Document stored',
-      createdParcelType: {
-        _id:result._id,
-        name: result.name,
-        code: result.code
-      },
-      request: {
-        type: 'GET',
-        url: 'http://localhost:3000/parcelType/' +result._id
-      }
-    });
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(
-      {
-      error: err
-    });
-  });
-});
+router.post('/', ParcelTypeController.parcelType_create_parcelType);
 //fetching data from the database by id
- router.get('/:nonDocumentsId', (req, res, next) =>
-  {
-   const id = req.params.nonDocumentsId;
-   NonDocument.findById(id)
-   .select('name code _id')
-   .exec()
-   .then(doc => {
-     console.log("From database", doc);
-     if(doc) {
-       res.status(200).json(
-         {
-         nonDocument: doc,
-         request: {
-           type: 'GET',
-           url: 'http://localhost:3000/nonDocuments/'
-         }
-       });
-     } else
-     {
-       res.status(404).json({message: 'No Valid entry found for provided ID'})
-     }
-   })
-   .catch(err => {
-     console.log(err);
-     res.status(500).json({error: err})
-   });
-   });
+ router.get('/:parcelTypeId', ParcelTypeController.parcelType_get_single_record );
 //Deleting data from the database
-router.delete('/:parcelTypeId', (req, res, next) =>
- {
-  ParcelType.remove({_id: req.params.parcelTypeId})
-  .exec()
-  .then(result =>
-    {
-    res.status(200).json(
-      {
-      message: 'ParcelType  Deleted',
-      request: {
-        type: 'POST',
-        url: 'http://localhost:3000/parcelType',
-        body: {name: 'String', code: 'String'}
-      }
-    })
-  })
-  .catch(err =>
-    {
-    res.status(500).json(
-      {
-      error: err
-    });
-  });
-});
+router.delete('/:parcelTypeId', ParcelTypeController.parcelType_delete_record);
 
 module.exports = router;

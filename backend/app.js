@@ -1,16 +1,23 @@
 //Author Shambhu:-25/06/2019
 //Routing files
-const express = require('express');
-const app = express();
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose')
 
+// Express is a module. Provides you a way to implement HTTP server.
+const express = require('express');
+// create a express application object .
+const app = express();
+// Morgan is used for logging request details.
+const morgan = require('morgan');
+// parses request body with desired format. currently we are using JSON.
+const bodyParser = require('body-parser');
+//Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js.
+const mongoose = require('mongoose');
+
+// register your router here.
 const documentRoutes = require('./api/routes/document');
 const nonDocumentRoutes = require('./api/routes/nonDocument');
 const parcelTypeRoutes = require('./api/routes/parcelType');
 const carrierRoutes = require('./api/routes/carrier');
-//MongoDB connection
+// import DB connection. so that DB intilizes at application start up
 mongoose.connect("mongodb+srv://Shambhukeshri:shambhu68@cluster0-co3rz.mongodb.net/parcel-guru?retryWrites=true&w=majority",
  {useNewUrlParser: true});
 
@@ -18,6 +25,7 @@ mongoose.connect("mongodb+srv://Shambhukeshri:shambhu68@cluster0-co3rz.mongodb.n
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
+ // use body parser... currently parsing only JSON requests.
 app.use(bodyParser.json());
 
 app.use((req, res, next) =>
@@ -31,12 +39,12 @@ app.use((req, res, next) =>
   }
   next();
 });
-
+// register your router here.
 //Routes which should handle requests
-app.use('/documents', documentRoutes);
-app.use('/nonDocuments', nonDocumentRoutes);
-app.use('/parcelType', parcelTypeRoutes)
-app.use('/carrier', carrierRoutes)
+app.use('/v1/documents', documentRoutes);
+app.use('/v1/nonDocuments', nonDocumentRoutes);
+app.use('/v1/parcelType', parcelTypeRoutes)
+app.use('/v1/carrier', carrierRoutes)
 
 app.use((req, res, next) =>
  {
@@ -53,6 +61,5 @@ app.use((error, req, res, next) =>
     }
   });
 });
-
 
 module.exports = app;
