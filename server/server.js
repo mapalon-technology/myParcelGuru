@@ -60,11 +60,11 @@ class Server {
     // register your router here.
     app.use("/api/v1/", router);
 
-    app.use(express.static("D:/PROJECTS/ParcelGuru/dist/"));
+    app.use(express.static(path.join(__dirname, '/dist/')));
     app.use("*", function (req, res) {
       // res.sendFile(__dirname + "/index.html");
       // res.sendFile(path.join( "/Users/chaitanya/CB/node_training/node_js/flipkart/index.html"));
-      res.sendFile("D:/PROJECTS/ParcelGuru/dist/index.html");
+      res.sendFile(path.join(__dirname, '/dist/index.html'));
     });
 
     if (process.env.NODE_ENV !== 'prd') {
