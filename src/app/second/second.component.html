@@ -1,0 +1,172 @@
+<!-- Author Shambhu & mangesh & swapnil:-14/06/2019
+second page components -->
+<!-- Radio buttons -->
+<div class="radio" >
+  <mat-radio-group  aria-label="select An Option" name="gender"  [formControl]="notificationTypeFc" >
+    <mat-radio-button value="Domestic" name="Dom" checked="true">Domestic</mat-radio-button>&nbsp;&nbsp;
+    <mat-radio-button value="International" name="Ion" disabled>International</mat-radio-button>
+  </mat-radio-group>
+  </div>
+<!-- Dropdown for parcel type -->
+  <div class="selectType1" >
+<tr>
+      <td>
+          <h4>Parcel Type</h4>
+          <mat-form-field class="dropdown1"  floatLabel="auto" hideRequiredMarker appearance="outline"  color="primary" >
+
+              <!-- <mat-label >Select Type</mat-label> -->
+
+              <mat-select matInput name="type" placeholder="Select Type" required ngModel #name2="ngModel" (selectionChange)=onChange($event)>
+
+                <mat-option
+                *ngFor="let pType of parcelType" [value]="pType.code">
+                  {{pType.name}}
+                </mat-option>
+              </mat-select>
+               <mat-error *ngIf="name2.touched && name2.invalid">
+                  Please select Type
+                </mat-error>
+            </mat-form-field>
+</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- Google maps -->
+  <td>
+    <div class="container-fluid" >
+      <div class="row"><h4>Sending From</h4>
+        <div class="col=md-12">
+          <div class="form-group" name="frm"  >
+            <!--<label for="place"></label>-->
+            <mat-form-field
+             floatLabel="auto"
+             hideRequiredMarker
+             appearance="outline"
+             color="primary"
+             style="width:180px ;height:50 !important"
+             >
+            <!--<label for="place"></label>-->
+            <input matInput placeholder="Search For Location"
+            autocorrect ="off"
+            autoCaptalize="off"
+            spellcheck="off"
+            class="form-control"
+            #search
+            name="name"
+             required
+             ngModel
+             #name="ngModel"
+            >
+            <mat-error *ngIf="name.touched && name.invalid">
+                Name is required.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <td>
+    <div class="container-fluid" class="dropdown1">
+      <div class="row"><h4>Sending To</h4>
+        <div class="col=md-12">
+          <div class="form-group">
+            <label for="place"></label>
+            <mat-form-field floatLabel="auto"
+              hideRequiredMarker
+              appearance="outline"
+              style="width:180px !important"
+              >
+                <input matInput size="15"
+                placeholder="Search For Location"
+                autocorrect ="off"
+                autoCaptalize="off"
+                spellcheck="off"
+                class="form-control"
+                #searchTo style="padding-top: -30px"
+                name="name"
+                required
+                ngModel
+                #name1="ngModel"
+                >
+                <mat-error
+                *ngIf="name.touched && name.invalid">
+                    Name is required.
+                  </mat-error>
+              </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
+</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- enter weight -->
+<div  class="form-control weight" id="weightId" #weightId>
+   <h5> Weight&nbsp;:&nbsp;<input style="width: 9%" MatInput type="number" min="0" name="name4"
+    required
+    ngModel
+    #name4="ngModel" >&nbsp; Kg</h5>
+    <div *ngIf="name4.touched && name4.invalid || name4.value>=41 || name4.value<0" class="error">
+       <h6> Please Enter Weight upto 40 (Enter Positive numbers only).</h6>
+    </div>
+</div>
+<!-- Enter dimensions -->
+<div class="val">
+<div *ngIf="isDimentionalVisible" class="form-control" class="dimensions" >
+    <h5> Dimensions&nbsp;:&nbsp;
+
+      <input type="number" min="0" style="width: 9%" MatInput type="number" name="name7"
+      required
+      ngModel
+      #name7="ngModel"  >
+
+      <select class="measures" style="width: 3.5%">
+          <option selected value="Cm">Cm</option>
+          <option value="Inches">Inch</option>
+          <option value="Feet">Feet</option>
+</select>&nbsp;
+      <input type="number" min="0" style="width: 9%" MatInput type="number" name="name6"
+      required
+      ngModel
+      #name6="ngModel">
+
+      <select class="measures" style="width: 3.5%">
+          <option selected value="Cm">Cm</option>
+          <option value="Inches">Inch</option>
+          <option value="Feet">Feet</option>
+</select>&nbsp;
+
+      <input type="number" min="0" style="width: 9%" MatInput type="number" name="name8"
+      required
+      ngModel
+      #name8="ngModel">
+
+      <select class="measures" style="width: 3.5%" >
+          <option selected value="Cm">Cm</option>
+          <option value="Inches">Inch</option>
+          <option value="Feet">Feet</option>
+</select>&nbsp;
+        <div *ngIf="name7.touched && name7.invalid || name6.touched && name6.invalid || name8.touched && name8.invalid" class="error">
+            <h6> Please Enter Dimension</h6>
+
+          </div>
+      </h5>
+    </div>
+ </div>
+<!-- Button for proceed -->
+ <div class="form-control" class="submitButton">
+  <button
+  mat-raised-button
+  color="accent"
+  style="background-color:rgb(245, 83, 210)"
+  [disabled]="!name.valid || !name1.valid || !name2.valid">Proceed</button>
+</div>
+<!-- Progrss bar -->
+<div class="container">
+    <ul class="progressbar">
+      <li class="active">Step 1</li>
+      <li>Step 2</li>
+      <li>Step 3</li>
+      <li>Step 4</li>
+    </ul>
+  </div>
+
