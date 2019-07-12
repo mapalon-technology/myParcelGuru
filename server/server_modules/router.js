@@ -5,16 +5,13 @@ const app = express();
 //  Routes enable you to create different URLs for different content in your application.
 const router = express.Router();
 // import controllers
+const ParcelTypeController = require('./controllers/parcelType');
 const DocumentController = require('./controllers/document')
-
-
-
 
 class Routes {
   constructor() {
 
     // this.documents();
-    // this.noDocuments();
     // this.nonDocumentRoutes();
     this.parcelTypeRoutes();
     // rest of your routes initialization...
@@ -47,48 +44,16 @@ class Routes {
   }
 
   parcelTypeRoutes() {
-
-    const mongoose = require('mongoose');
-    const ParcelType = require('./models/parcelType');
-
-    // fetching data from backend
-
-    router.get("/",
-      (req, res) => {
-
-       
-
-        ParcelType.find().select('name code')
-          .exec()
-          .then(docs => {
-            console.log("Data ala re , ");
-            
-            let data = {
-              count: docs.length,
-              parcelType: docs.map(doc =>
-                {
-               return {
-                 _id: doc._id,
-                 name: doc.name,
-                 code: doc.code,
-                 request:
-                 {
-                   type: 'GET',
-                   url: 'http://localhost:3000/v1/parcelType/'
-                 }
-               }
-             })
-              
-            };
-
-            res.send(data);
-            console.log("Data ala re , ", data);
-          })
-          .catch(err => {
-            console.error("Error :: ", err);
-          })
-       }
-    );
+    
+    //fetching data from database
+// router.get('/', ParcelTypeController.parcelType_get_allrecords);
+//Adding data to the database
+router.post('/', ParcelTypeController.parcelType_create_parcelType);
+//fetching data from the database by id
+//  router.get('/:parcelTypeId', ParcelTypeController.parcelType_get_single_record );
+//Deleting data from the database
+// router.delete('/:parcelTypeId', ParcelTypeController.parcelType_delete_record);
+    
   }
 
   carrierRoutes() {

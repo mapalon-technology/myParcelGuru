@@ -11,6 +11,7 @@ exports.parcelType_get_allrecords = (req, res, next) =>
   .exec()
   .then(docs =>
     {
+      console.log("Data is Loading...");
     res.status(200).json(
       {
       count: docs.length,
@@ -28,6 +29,7 @@ exports.parcelType_get_allrecords = (req, res, next) =>
         }
       })
     });
+    console.log(docs);
   })
   .catch(err => {
     res.status(500).json(
@@ -63,6 +65,7 @@ exports.parcelType_create_parcelType = (req, res, next) =>
         url: 'http://localhost:3000/v1/parcelType/' +result._id
       }
     });
+    console.log(docs);
   })
   .catch(err => {
     console.log(err);
@@ -80,6 +83,7 @@ exports.parcelType_get_single_record = (req, res, next) =>
  .select('name code _id')
  .exec()
  .then(doc => {
+  console.log("Data is Loading...");
    console.log("From database", doc);
    if(doc) {
      res.status(200).json(
@@ -90,6 +94,7 @@ exports.parcelType_get_single_record = (req, res, next) =>
          url: 'http://localhost:3000/v1/parcelType/'
        }
      });
+    //  console.log(doc);
    } else
    {
      res.status(404).json({message: 'No Valid entry found for provided ID'})
@@ -107,6 +112,7 @@ exports.parcelType_delete_record = (req, res, next) =>
  .exec()
  .then(result =>
    {
+    console.log("Data is Loading...");
    res.status(200).json(
      {
      message: 'ParcelType  Deleted',
@@ -116,6 +122,7 @@ exports.parcelType_delete_record = (req, res, next) =>
        body: {name: 'String', code: 'String'}
      }
    })
+   console.log(docs);
  })
  .catch(err =>
    {
